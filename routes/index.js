@@ -1,16 +1,12 @@
 module.exports = app => {
+    const Tasks = app.models.tasks
     app.get('/', (req, res) => res.json({
         status: 'NTask API'
     }))
 
-    app.get('/tasks', (req, res) => 
-    res.json({
-        tasks: [
-            {title: 'Fazer compras'},
-            {title: 'Limpar o pc'}
-        ]
-    }
-
-))
-
+    app.get('/tasks', (req, res) =>
+        Tasks.findAll({}, (tasks) => {
+            res.json({ tasks: tasks })
+        })
+    )
 }
